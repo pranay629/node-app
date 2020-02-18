@@ -17,14 +17,14 @@ pipeline {
         
         stage('Build Docker Image'){
             steps{
-                sh "docker build . -t anilkumblepuli/vprofile2:${DOCKER_TAG}"
+                sh "docker build . -t anilkumblepuli/vprofile2:$BUILD_NUMBER"
             }
         }
         stage('DockerHub Push'){
             steps{
                 withCredentials([string(credentialsId: 'dockerpasswD', variable: 'dockerpasswD')])   {
                     sh "docker login -u anilkumblepuli -p ${dockerpasswD}"
-                    sh "docker push anilkumblepuli/vprofile2:${DOCKER_TAG}"
+                    sh "docker push anilkumblepuli/vprofile2:$BUILD_NUMBER"
                 }
             }
         }
